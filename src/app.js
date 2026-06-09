@@ -1,19 +1,24 @@
 import express from "express"
-import subjectRoutes from "./routes/subject.route.js"
-import userRoutes from "./routes/user.route.js"
+import routes from "./routes/routes.js"
+import {config} from "dotenv"
+import cors from "cors"
+
+config() // cargo las variables de entorno
 
 // creo servidor basico
-const app = express()
+const servidor = express()
 
-// defino las rutas que podra usar mi app
-app.use(userRoutes)
-app.use(subjectRoutes)
+// pongo las coors para que el frontend pueda consumir mi api sin problemas de cors
+servidor.use(cors())
 
+// defino la entrada de la ruta para mi servidor
+servidor.use("/api", routes)
 
-app.get("/", (req,res) =>{
+// armo una ruta de aterrizaje
+servidor.get("/", (req,res) =>{
     res.send("Servidor funcionando")
 })
-
-app.listen(3000, ()=>{
-    console.log("servidor corriendo en http://localhost:3000");
+// pongo el servidor en escucha
+servidor.listen(process.env.PORT, ()=>{
+    console.log(`servidor corriendo en http://localhost:${process.env.PORT}`);
 })

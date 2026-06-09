@@ -1,0 +1,15 @@
+import {Router} from "express"
+import userRoute from "./user.route.js"
+import subjectRoute from "./subject.route.js"
+
+// declaramos e inicializamos el enrutador
+const router = Router()
+
+//armo las rutas que usare segun sea la ocasion usuario o materias: 
+router.use("/user", userRoute)
+router.use("/subject", subjectRoute )
+
+// ahora armo la ruta para autenticacion de usuario que los enviara a login o register segun sea el caso
+//...
+
+export default router
