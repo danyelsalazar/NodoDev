@@ -15,7 +15,7 @@ const subjectSchema = new Schema({
         enum: {
           values: [
             "Ingenieria en Sistemas",
-            "Licencenciatura en Informatica",
+            "Licenciatura en Informatica",
             "Tecnicatura en tecnologias web",
             "Tecnicatura en redes Informaticas",
             "Tecnicatura en analista de sistemas",

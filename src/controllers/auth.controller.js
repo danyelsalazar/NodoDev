@@ -1,4 +1,3 @@
-import { success } from "zod";
 import { User } from "../models/UserModel.js";
 import bcrypto from "bcrypt";
 import jwt from "jsonwebtoken";
