@@ -22,7 +22,7 @@ const verificarToken = (req, res, next) => {
     next() //continuo hacia la ruta
   }catch(eror){
     res.status(403).json({
-        succes: false,
+        success: false,
         error: "Token invalido o expirado"
     })
   }
