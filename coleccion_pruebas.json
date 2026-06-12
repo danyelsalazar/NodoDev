@@ -1,0 +1,288 @@
+{
+  "info": {
+    "name": "TP-2-backend-UTN",
+    "description": null,
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "registrarUsauario",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "auth",
+            "register"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nombre\": \"Danyel\",\n    \"email\": \"danygasia2@gmail.com\",\n    \"password\": \"Danyel2410$1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "auth",
+            "login"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"danygasia2@gmail.com\",\n    \"password\": \"Danyel2410$1\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "crearMateria",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/subject",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "subject"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Base de Datos II\",\n  carreras:[\n    \"Licenciatura en Informatica\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "TarerDatosUsuario",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer ",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "modificarDatosUser",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer ",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Danyel Salazar Aarcon\",\n  \"materias\": [\n    \"6a2b1d33abebca29ffc4eacc\"\n  ]\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "eliminarUsuario",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "registrarMateriaUsuario",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/materia",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "materia"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"idMateria\": \"6a2b1d33abebca29ffc4eacc\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "listarMateriasUser",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/materia",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "materia"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    }
+  ],
+  "variable": []
+}
