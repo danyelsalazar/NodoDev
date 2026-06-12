@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// Definimos las reglas para el registro de usuario
+// Definimos las reglas para el registro de materia
 const creacionSubjectSchema = z.object({
   nombre: z
     .string({ required_error: "El nombre es obligatorio" })
