@@ -20,8 +20,8 @@ Adicionalmente, el servidor cuenta con una capa estricta de validación de datos
 ## Estructura del Proyecto (Arquitectura MVC)
 ```text
 ├── src/
-│   ├── controllers          # Configuración de base de datos
-│   ├── db/     # Lógica de negocio (Controladores)
+│   ├── controllers      #logica de negocio
+│   ├── db/              # conexion a la base de datos
 │   ├── middleware/      # Middlewares (Auth JWT y validaciones Zod)
 │   ├── models/          # Modelos de Mongoose (Schemes)
 │   ├── routes/          # Definición de Endpoints (Rutas)
