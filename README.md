@@ -130,6 +130,15 @@ Deberías ver los mensajes:
 
 #### **POST** `/api/subjects` (Creación Global de Materia)
 *   **Descripción:** Registra una nueva materia en el sistema general (utiliza de Zod para validar el nombre y el arreglo de carreras autorizadas).
+*   **Cuerpo (JSON) Obligatorio:**
+```json
+{
+  "nombre": "Base de Datos I",
+  "carreras":[
+    "Licenciatura en Informatica"
+  ]
+}
+```
 
 ### Proximo : agregar PATCH y DELETE para las materias del usaurio
 ---
