@@ -126,9 +126,26 @@ Deberías ver los mensajes:
 
 ---
 
+### 4. Gestión de Materias (Entidad Asociada)
+
+#### **POST** `/api/subjects` (Creación Global de Materia)
+*   **Descripción:** Registra una nueva materia en el sistema general (utiliza de Zod para validar el nombre y el arreglo de carreras autorizadas).
+
+### Proximo : agregar PATCH y DELETE para las materias del usaurio
+---
+
 ## Pruebas Automatizadas (Postman / Thunder Client)
 Se adjunta en la raíz del proyecto el archivo `coleccion_pruebas.json` que contiene todas las peticiones listas para importar. 
 
 1. Abre **Postman**.
 2. Haz clic en **Import** y selecciona el archivo `.json`.
 3. Ejecuta primero la petición de regrar y luego login para crear el token y ese token se lo pones a las peticiones que tienen Bearer en el header
+
+
+---
+
+## Próximas Implementaciones
+El proyecto se encuentra en desarrollo activo y próximamente se integrarán las siguientes funcionalidades de interacción social dentro de la plataforma:
+
+*   **Colección de Publicaciones**: Creación de un modelo `Publicacion` para que los usuarios puedan realizar posts asociados a su perfil mediante relaciones de Mongoose (`ObjectId`).
+*   **Sistema de Interacción (Likes / Unlikes)**: Lógica en controladores utilizando el operador de actualización `$addToSet` para permitir dar "Me gusta" de forma única por usuario y `$pull` para remover el voto, controlando la integridad de los datos en tiempo real.
