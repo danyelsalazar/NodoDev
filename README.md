@@ -149,7 +149,6 @@ Para actualizar solo el arreglo de materias del usuario:
 }
 ```
 
-### Proximo : agregar PATCH y DELETE para las materias del usaurio
 ---
 
 ## Pruebas Automatizadas (Postman / Thunder Client)
