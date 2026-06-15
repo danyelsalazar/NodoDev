@@ -104,6 +104,15 @@ Deberías ver los mensajes:
 }
 ```
 
+Para actualizar solo el arreglo de materias del usuario: 
+```json
+{
+  "materias": [
+    "6a2b1d33abebca29ffc4eacc"
+  ]
+}
+```
+
 #### **DELETE** `/api/users` (Eliminar Cuenta)
 *   **Descripción:** Realiza un borrado físico permanente de la cuenta asociada al token activo.
 

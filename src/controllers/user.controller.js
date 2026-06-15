@@ -1,5 +1,6 @@
 import { success } from "zod";
 import { User } from "../models/UserModel.js";
+import { Subject } from "../models/SubjectModel.js";
 
 //funcion para traer los datos del usuario
 const getUser = async (req, res) => {
@@ -26,6 +27,22 @@ const patchUser = async (req, res) => {
     const datosToken = req.user;
     // traigo los datos de actulizacion ya verificados
     const datosActualizacion = req.body;
+    //si se llega mandar una password en esa informacion la saco ya que esto es solo para actualizar sus datos de perfil , la actualizacion de password la hare por separado
+    delete datosActualizacion.password
+    //destructuro y obtengom los ids de la/s materias asi los verifico si exiten esas materias o no
+    const {materias} = datosActualizacion
+    // compruebo que haya enviado materias en la actualizacion
+    if(materias){
+      // mandamos las materias y verificamos que existan en la bd
+      const cantMaterias = await verificadorMateriasExist(materias)
+      //si el cantMaterias es menor que la cantidad de materias enviadas es porque alguna no existe en la bd
+      if(cantMaterias < materias.length){
+        return res.status(404).json({
+          success: false,
+          message: "Una de las materias enviadas no existe en la base de datos"
+        })
+      }
+    }
     //hago los cambios en la basee de datos
     const userActualizado = await User.findByIdAndUpdate(
       datosToken.id,
@@ -34,14 +51,14 @@ const patchUser = async (req, res) => {
         new: true,
         runValidators: true, //le digo que use las validaciones que le puse ene l schema ya que como es una actualizacion mongo se salta esa parte si no le indico que la use
       },
-    ).select("-password"); //aqui por siacaso le digo que no me selecione la password en la actulizacion y asi tambien omite el hasheo de password
+    ).select("-password"); //aqui por siacaso le digo que no me selecione la password asi no lo devuelve luego de la actualizacion
 
     // verifico en caso de que el id no exista en la base de datos o por si se elimino ese usuario
     if(!userActualizado) return res.status(404).json({
         success: false,
         message: "El usuario que intentas modificar no existe o fue eliminado "
     })
-    res.status(201).json({
+    res.status(200).json({
       success: true,
       data: userActualizado,
       message: "Usuario actualizado correctamente",
@@ -54,6 +71,15 @@ const patchUser = async (req, res) => {
     });
   }
 };
+
+const verificadorMateriasExist = async (materias) => {
+  // contamos cuantos de los IDs recibidos existen realmente en la base de datos
+  const cantMaterias = await Subject.countDocuments({
+    _id: { $in: materias }
+  });
+  return cantMaterias;
+};
+
 
 // funcion para eliminar usuario, para mi es como si fuera usaurio de un ared social asi que desde mi perfil tengo acceso a eliminar mi cuenta
 

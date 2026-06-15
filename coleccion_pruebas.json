@@ -99,7 +99,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nombre\": \"Base de Datos II\",\n  carreras:[\n    \"Licenciatura en Informatica\"\n  ]\n}",
+          "raw": "{\n  \"nombre\": \"Base de Datos I\",\n  \"carreras\":[\n    \"Licenciatura en Informatica\"\n  ]\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -280,6 +280,46 @@
           ],
           "query": [],
           "variable": []
+        }
+      }
+    },
+    {
+      "name": "ModificarMateriasUser",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMmI1YzM4NjI4Y2U4MThjOTk1ZDQ2ZiIsImlhdCI6MTc4MTQ4MTE5NCwiZXhwIjoxNzgxNDg0Nzk0fQ.mA1O4bKSAqYhrCh0di_WUy86ZGgrnJsP1k32pfeXdY8",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"materias\": [\n    \"6a2b1d33abebca29ffc4eacc\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
         }
       }
     }

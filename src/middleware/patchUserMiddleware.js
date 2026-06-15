@@ -1,4 +1,8 @@
 import { z } from "zod";
+// Validar que un string tenga el formato exacto de un ObjectId de MongoDB, asi se lo paso en materias para estar seguro que esta enviando un id correcto
+const objectIdSchema = z
+  .string()
+  .regex(/^[0-9a-fA-F]{24}$/, "El ID de la materia no es válido");
 
 // Definimos las reglas para modificacion de datos del usaurio , puede modificar todo menos su password aqui
 const patchUserSchema = z.object({
@@ -7,12 +11,14 @@ const patchUserSchema = z.object({
     .min(3, "El nombre debe tener al menos 3 caracteres")
     .optional(),
 
-  email: z
-    .string()
-    .email("El formato del email no es válido")
-    .optional(),
+  email: z.string().email("El formato del email no es válido").optional(),
 
-  materias: z.array(z.string()).optional(),
+  materias: z
+    .array(objectIdSchema, {
+      invalid_type_error: "El campo materias debe ser un arreglo de ids",
+    })
+    .min(1, "Debes seleccionar al menos una materia")
+    .optional(),
   carrera: z.string().optional(),
 });
 
