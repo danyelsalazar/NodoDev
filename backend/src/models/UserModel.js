@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
+import { ROLES } from "../constants/roles.js";
 
 const userSchema = new Schema({
   nombre: {
@@ -49,6 +50,10 @@ const userSchema = new Schema({
     ],
     default: [],
   },
+  role: {
+    type: String,
+    enum: Object.values(ROLES),
+  },
 });
 
 // uso el metodo pre de mongo para crear un hook que va a  hashear la password antes de guardarla en la bd
@@ -61,7 +66,7 @@ userSchema.pre("save", async function () {
     // Reemplazamos el texto plano por el hash seguro
     this.password = await bcrypt.hash(this.password, 10);
   } catch (error) {
-    throw error; 
+    throw error;
   }
 });
 
