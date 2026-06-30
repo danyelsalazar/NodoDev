@@ -114,8 +114,8 @@ const deleteUser = async (req, res) => {
 //===================================================================
 const getUsers = async (req, res) => {
   try {
-    // obtengo los parametros, si no los envio les asigno un valor default
-    const { page = 1, limit = 5, role } = req.query;
+    //los parametrtos ya vienen validados con el middleware validateQueryUser
+    const { page, limit, role } = req.query;
     let filtro = {};
 
     if (role) {
@@ -129,7 +129,7 @@ const getUsers = async (req, res) => {
     const users = await User.find(filtro)
       .select("-password")
       .skip((page - 1) * limit)
-      .limit(Number(limit));
+      .limit(limit);
 
     res.status(200).json({
       success: true,
