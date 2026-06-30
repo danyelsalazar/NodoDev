@@ -10,7 +10,6 @@ const publicationSchema = new Schema(
     materia: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Subject",
-      required: true,
     },
     publicador: {
       type: mongoose.Schema.Types.ObjectId, // Guarda el ID del usuario
