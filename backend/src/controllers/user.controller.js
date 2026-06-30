@@ -135,7 +135,7 @@ const getUsers = async (req, res) => {
       success: true,
       total,
       page: Number(page),
-      totalPages: Math.ceil(total / limit),
+      totalPages: Math.ceil(Number(total) / Number(limit)),
       data: users,
     });
   } catch (error) {
