@@ -112,12 +112,32 @@ const deleteUser = async (req, res) => {
 //===================================================================
 //================ FUNCIONES PARA ADMIN =============================
 //===================================================================
-const getUsers = (req, res) => {
+const getUsers = async (req, res) => {
   try {
+    // obtengo los parametros, si no los envio les asigno un valor default
+    const { page = 1, limit = 5, role } = req.query;
+    let filtro = {};
+
+    if (role) {
+      filtro.role = role;
+    }
+
+    // cuento cuantos cumplen con el filtrado por rol, asi se cuanto es el total que traere y podeer hacer los calculos de paginacion
+    const total = await User.countDocuments(filtro);
+
+    // usuarios paginados :
+    const users = await User.find(filtro)
+      .select("-password")
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
     res.status(200).json({
-      success:true,
-      data: "trayendo datos de todos los usuarios"
-    })
+      success: true,
+      total,
+      page: Number(page),
+      totalPages: Math.ceil(total / limit),
+      data: users,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
