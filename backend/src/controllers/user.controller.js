@@ -122,7 +122,7 @@ const getUsers = async (req, res) => {
       filtro.role = role;
     }
 
-    // cuento cuantos cumplen con el filtrado por rol, asi se cuanto es el total que traere y podeer hacer los calculos de paginacion
+    // cuantos cumplen con el filtrado por rol, asi se cuanto es el total que traere y podeer hacer los calculos de paginacion
     const total = await User.countDocuments(filtro);
 
     // usuarios paginados :
@@ -135,7 +135,7 @@ const getUsers = async (req, res) => {
       success: true,
       total,
       page: Number(page),
-      totalPages: Math.ceil(Number(total) / Number(limit)),
+      totalPages: Math.ceil(total / limit),
       data: users,
     });
   } catch (error) {

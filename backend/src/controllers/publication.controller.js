@@ -41,27 +41,41 @@ const createPublication = async (req, res) => {
 
 const getPublications = async (req, res) => {
   try {
-    // req.query ya viene limpio, validado y con números reales gracias al middleware de validacion de parametros
-    const { page, limit, materia } = req.query;
+    const { page, limit, materia, tipo } = req.query;
     let filtro = {};
 
+    // filtro de materia es totalmente independiente
     if (materia) {
       const materiaEncontrada = await Subject.findOne({
         nombre: { $regex: materia, $options: "i" },
       });
 
+      // Si la materia que busca el usuario no existe
       if (!materiaEncontrada) {
         return res.status(200).json({
           success: true,
           count: 0,
           page,
           totalPages: 0,
-          message: "La materia de filtrado no existe in la BD",
+          message: `La materia '${materia}' no existe en la BD`,
           data: [],
         });
       }
+
+      // Si existe, agregamos su id al filtro
       filtro.materia = materiaEncontrada._id;
     }
+
+    // FILTRO DE TIPO: También es independiente y se acumula si ya existe la materia
+    if (tipo) {
+      filtro.tipo = tipo;
+    }
+
+    // A partir de aqui, filtro puede contener:
+    // {} (trae todo)
+    // { materia: ID } (solo materia)
+    // { tipo: "RECURSO" } (solo tipo)
+    // { materia: ID, tipo: "RECURSO" } (ambos al mismo tiempo)
 
     const totalPublications = await Publication.countDocuments(filtro);
 
