@@ -16,12 +16,6 @@ const createPublicationSchema = z.object({
   materia: objectIdSchema
     .optional(),
 
-  publicador: objectIdSchema,
-
-  likers: z
-    .array(objectIdSchema)
-    .optional(),
-
   tipo: z
     .nativeEnum(TYPES, {
       errorMap: () => ({
