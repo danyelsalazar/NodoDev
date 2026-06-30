@@ -54,6 +54,7 @@ const userSchema = new Schema(
     role: {
       type: String,
       enum: Object.values(ROLES),
+      default: ROLES.USER
     },
   },
   { timestamps: true },
