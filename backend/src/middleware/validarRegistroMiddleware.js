@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-// esquema de validacion , use zod
-
-// Definimos las reglas para el registro de usuario
+// esquema de validacion
 const registroSchema = z.object({
   nombre: z
     .string({ required_error: "El nombre es obligatorio" })
@@ -15,7 +13,6 @@ const registroSchema = z.object({
   password: z
     .string({ required_error: "La contraseña es obligatoria" })
     .min(8, "La contraseña debe tener al menos 8 caracteres")
-    // Puedes usar Regex para exigir mayúsculas, números, etc.
     .regex(/[A-Z]/, "La contraseña debe tener al menos una letra mayúscula")
     .regex(/[0-9]/, "La contraseña debe tener al menos un número")
     .regex(

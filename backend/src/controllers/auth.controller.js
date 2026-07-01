@@ -64,7 +64,7 @@ const loginUser = async (req, res) => {
 
     //creo el token para el usuario
     const token = jwt.sign(
-      { id: userLoginSearch._id },
+      { id: userLoginSearch._id, role: userLoginSearch.role },
       process.env.JWT_SECRET,
       { expiresIn: "1h" },
     );

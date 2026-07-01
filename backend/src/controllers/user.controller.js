@@ -28,19 +28,19 @@ const patchUser = async (req, res) => {
     // traigo los datos de actulizacion ya verificados
     const datosActualizacion = req.body;
     //si se llega mandar una password en esa informacion la saco ya que esto es solo para actualizar sus datos de perfil , la actualizacion de password la hare por separado
-    delete datosActualizacion.password
+    delete datosActualizacion.password;
     //destructuro y obtengom los ids de la/s materias asi los verifico si exiten esas materias o no
-    const {materias} = datosActualizacion
+    const { materias } = datosActualizacion;
     // compruebo que haya enviado materias en la actualizacion
-    if(materias){
+    if (materias) {
       // mandamos las materias y verificamos que existan en la bd
-      const cantMaterias = await verificadorMateriasExist(materias)
+      const cantMaterias = await verificadorMateriasExist(materias);
       //si el cantMaterias es menor que la cantidad de materias enviadas es porque alguna no existe en la bd
-      if(cantMaterias < materias.length){
+      if (cantMaterias < materias.length) {
         return res.status(404).json({
           success: false,
-          message: "Una de las materias enviadas no existe en la base de datos"
-        })
+          message: "Una de las materias enviadas no existe en la base de datos",
+        });
       }
     }
     //hago los cambios en la basee de datos
@@ -54,10 +54,11 @@ const patchUser = async (req, res) => {
     ).select("-password"); //aqui por siacaso le digo que no me selecione la password asi no lo devuelve luego de la actualizacion
 
     // verifico en caso de que el id no exista en la base de datos o por si se elimino ese usuario
-    if(!userActualizado) return res.status(404).json({
+    if (!userActualizado)
+      return res.status(404).json({
         success: false,
-        message: "El usuario que intentas modificar no existe o fue eliminado "
-    })
+        message: "El usuario que intentas modificar no existe o fue eliminado ",
+      });
     res.status(200).json({
       success: true,
       data: userActualizado,
@@ -75,11 +76,10 @@ const patchUser = async (req, res) => {
 const verificadorMateriasExist = async (materias) => {
   // contamos cuantos de los IDs recibidos existen realmente en la base de datos
   const cantMaterias = await Subject.countDocuments({
-    _id: { $in: materias }
+    _id: { $in: materias },
   });
   return cantMaterias;
 };
-
 
 // funcion para eliminar usuario, para mi es como si fuera usaurio de un ared social asi que desde mi perfil tengo acceso a eliminar mi cuenta
 
@@ -109,4 +109,42 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { getUser, patchUser, deleteUser };
+//===================================================================
+//================ FUNCIONES PARA ADMIN =============================
+//===================================================================
+const getUsers = async (req, res) => {
+  try {
+    //los parametrtos ya vienen validados con el middleware validateQueryUser
+    const { page, limit, role } = req.query;
+    let filtro = {};
+
+    if (role) {
+      filtro.role = role;
+    }
+
+    // cuantos cumplen con el filtrado por rol, asi se cuanto es el total que traere y podeer hacer los calculos de paginacion
+    const total = await User.countDocuments(filtro);
+
+    // usuarios paginados :
+    const users = await User.find(filtro)
+      .select("-password")
+      .skip((page - 1) * limit)
+      .limit(limit);
+
+    res.status(200).json({
+      success: true,
+      total,
+      page: Number(page),
+      totalPages: Math.ceil(total / limit),
+      data: users,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "error del servidor",
+      error: error.message,
+    });
+  }
+};
+
+export { getUser, patchUser, deleteUser, getUsers };
