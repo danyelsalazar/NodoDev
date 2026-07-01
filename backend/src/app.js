@@ -26,7 +26,8 @@ servidor.get("/", (req,res) =>{
 })
 
 //MANEJO DE ERRORES
-app.use(errorHandler);
+servidor.use(errorHandler);
+
 // pongo el servidor en escucha
 servidor.listen(process.env.PORT, ()=>{
     console.log(`servidor corriendo en http://localhost:${process.env.PORT}`);

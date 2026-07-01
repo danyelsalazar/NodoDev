@@ -1,5 +1,3 @@
-import AppError from "../utils/AppError.js";
-
 export const errorHandler = (err, req, res, next) => {
   // Si el error es nuestro usa su propio status, si es un error raro de Node usa 500
   err.statusCode = err.statusCode || 500;
