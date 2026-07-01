@@ -43,7 +43,38 @@ const adminPatchUser = async (req, res) => {
 //delete user
 const adminDeleteUser = async (req, res) => {
   try {
-  } catch (error) {}
+    const { id } = req.params; //obtengo el id ya esta validado con su middleware
+
+    //verifico que el mismo administrador no se vaya a eliminar jajaj :)
+    if(id === req.user.id){
+        return res.status(400).json({
+        success: false,
+        message: "No te puedes eliminar tu mismo :)",
+      });
+    }
+    const deleteUser = await User.findByIdAndDelete(id).select("-password");
+
+    //verifico si si existi:
+    if (!deleteUser) {
+      return res.status(404).json({
+        success: false,
+        message: "No se encontro ningun usuario registrado con el ID enviado",
+      });
+    }
+
+    //si lo encontro enviamos la respuesta positiva
+    res.status(200).json({
+      success: true,
+      message: "Usuario eliminado correctamente",
+      data: deleteUser,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Error del servidor al eliminar el usuario",
+      error: error.message,
+    });
+  }
 };
 
-export { adminPatchUser };
+export { adminPatchUser, adminDeleteUser };
