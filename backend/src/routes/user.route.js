@@ -10,6 +10,7 @@ import { allowRoles } from "../middleware/rolesMiddleware.js"
 import { ROLES } from "../constants/roles.js"
 import { validarQueryPublicaciones } from "../middleware/validateQueryPublications.js"
 import { createPublication, getPublications } from "../controllers/publication.controller.js"
+import { validarCrearPublicacion } from "../middleware/validarPublication.js"
 
 const router = Router()
 
@@ -19,6 +20,7 @@ router.delete("/",verificarToken, deleteUser )//ruta para eliminar usuario
 router.post("/materia", verificarToken, registrarMateriaUser) //ruta para registrar una amateria al usuario
 router.get("/materia", verificarToken, listarMaterias)//ruta para listar las materias del usaurio
 
-router.post("/publication",verificarToken, allowRoles(ROLES.ADMIN, ROLES.USER), createPublication ) //crear publicaciones
+router.post("/publication",verificarToken, allowRoles(ROLES.ADMIN, ROLES.USER), validarCrearPublicacion,createPublication ) //crear publicaciones
 router.get("/publications", verificarToken, allowRoles(ROLES.ADMIN, ROLES.USER), validarQueryPublicaciones, getPublications)//listar publicaciones
+
 export default router

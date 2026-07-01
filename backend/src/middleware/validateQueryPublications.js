@@ -30,7 +30,9 @@ export const validarQueryPublicaciones = (req, res, next) => {
       detalles: erroresFormateados,
     });
   }
-
-  req.query = validacion.data;
+  
+  //asignamos la data a req.query para que los controladores puedan usarla
+  Object.keys(req.query).forEach((key) => delete req.query[key]);
+  Object.assign(req.query, validacion.data);
   next();
 };

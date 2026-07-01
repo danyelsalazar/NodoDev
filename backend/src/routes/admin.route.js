@@ -9,7 +9,16 @@ import { validarQueryPublicaciones } from "../middleware/validateQueryPublicatio
 
 const router = Router()
 
-//traer usuarios
 router.get("/",verificarToken, allowRoles(ROLES.ADMIN), validarQueryUsuarios, getUsers)//listarUsuarios
 
+//eliminar publicaciones de usuarios
+//...
+
+//eliminar usuarios
+//...
+
+//editar roles de usuarios
+//...
+
+//
 export default router

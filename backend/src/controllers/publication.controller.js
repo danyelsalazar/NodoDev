@@ -30,9 +30,10 @@ const createPublication = async (req, res) => {
       message: "Publicacion creada con exito",
       data: newPublication,
     });
+    
   } catch (error) {
     res.status(500).json({
-      success: true,
+      success: false,
       message: "Error del servidor",
       error: error.message,
     });

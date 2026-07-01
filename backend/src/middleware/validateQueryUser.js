@@ -9,7 +9,11 @@ const queryUserSchema = z.object({
   page: z.coerce.number().int().positive().optional().default(1),
   limit: z.coerce.number().int().positive().max(100).optional().default(5),
   nombre: z.string().trim().optional(),
-  email: z.string().trim().email("El formato del email no es válido").optional(),
+  email: z
+    .string()
+    .trim()
+    .email("El formato del email no es válido")
+    .optional(),
   materias: z
     .preprocess((val) => {
       if (!val) return undefined;
@@ -42,6 +46,8 @@ export const validarQueryUsuarios = (req, res, next) => {
     });
   }
 
-  req.query = validacion.data;
+  //asignamos la data a req.query para que los controladores puedan usarla
+  Object.keys(req.query).forEach((key) => delete req.query[key]);
+  Object.assign(req.query, validacion.data);
   next();
 };

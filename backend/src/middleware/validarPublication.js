@@ -1,39 +1,41 @@
 import { z } from "zod";
 import { TYPES } from "../constants/typePublication.js";
 
-// para validar que los ID de usuario coincidan con la estructura de ids de mongo
+// Validador estricto para IDs de MongoDB
 const objectIdSchema = z
   .string()
-  .regex(/^[0-9a-fA-F]{24}$/, "El ID enviado no es un formato de MongoDB válido");
+  .regex(
+    /^[0-9a-fA-F]{24}$/,
+    "El ID de la materia no es un formato de MongoDB válido",
+  );
 
-//reglas para la CREACIÓN de una publicación
+// Reglas para la CREACIÓN de una publicación
 const createPublicationSchema = z.object({
   descripcion: z
-    .string({ required_error: "Se debe enviar una descripcion en la publicacion" })
+    .string({
+      required_error: "Se debe enviar una descripcion en la publicacion",
+    })
     .trim()
     .min(1, "Se debe enviar una descripcion en la publicacion"),
 
-  materia: objectIdSchema
-    .optional(),
+  // Si envían algo en 'materia', forzamos a que cumpla estrictamente el formato de ID de Mongo
+  materia: objectIdSchema.optional().or(z.literal("")), // Permite opcional o un string vacío limpio
 
-  tipo: z
-    .nativeEnum(TYPES, {
-      errorMap: () => ({
-        message: `El tipo de publicación no es válido. Opciones: ${Object.values(TYPES).join(", ")}`,
-      }),
+  tipo: z.nativeEnum(TYPES, {
+    errorMap: () => ({
+      message: `El tipo de publicación no es válido. Opciones: ${Object.values(TYPES).join(", ")}`,
     }),
+  }),
 });
 
 const validarCrearPublicacion = function (req, res, next) {
-  // Analizamos los datos del cuerpo de la petición
   const validacion = createPublicationSchema.safeParse(req.body);
 
-  // Si la validación falla
   if (!validacion.success) {
-    const erroresZod = validacion.error.issues || validacion.error.errors || [];
+    const erroresZod = validacion.error.issues || [];
 
-    // Formateamos con estructura limpia
     const erroresFormateados = erroresZod.map((err) => ({
+      // Extrae el nombre del campo exacto que falló (ej: "materia")
       campo: err.path && err.path.length > 0 ? err.path[0] : "general",
       mensaje: err.message,
     }));
@@ -45,7 +47,7 @@ const validarCrearPublicacion = function (req, res, next) {
     });
   }
 
-  // Si todo está bien, pasamos los datos limpios y avanzamos
+  // Si todo está bien, reemplazamos el body con los datos limpios de Zod
   req.body = validacion.data;
   next();
 };
