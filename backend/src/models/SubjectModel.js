@@ -1,4 +1,5 @@
 import mongoose, { Schema } from "mongoose";
+import { CARRERAS } from "../constants/carreras.js";
 
 // cremaos nuestro esquema de materias
 const subjectSchema = new Schema(
@@ -13,13 +14,7 @@ const subjectSchema = new Schema(
       type: [
         {
           type: String,
-          enum: [
-            "Ingenieria en Sistemas",
-            "Licenciatura en Informatica",
-            "Tecnicatura en tecnologias web",
-            "Tecnicatura en redes Informaticas",
-            "Tecnicatura en analista de sistemas",
-          ],
+          enum: Object.values(CARRERAS),
         },
       ],
       required: true,

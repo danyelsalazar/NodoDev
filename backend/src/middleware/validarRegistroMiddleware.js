@@ -21,7 +21,13 @@ const registroSchema = z.object({
     ),
 
   // Campos opcionales
-  materias: z.array(z.string()).optional(),
+  materias: z
+    .array(
+      z
+        .string()
+        .regex(/^[0-9a-fA-F]{24}$/, "Cada ID de materia debe ser válido"),
+    )
+    .optional(),
   carrera: z.string().optional(),
 });
 
@@ -52,4 +58,4 @@ const validarRegistro = function (req, res, next) {
   next(); // Continuamos al controlador
 };
 
-export { validarRegistro };
+export { registroSchema, validarRegistro };
