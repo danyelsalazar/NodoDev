@@ -30,7 +30,7 @@ const createPublication = async (req, res) => {
       message: "Publicacion creada con exito",
       data: newPublication,
     });
-    
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -40,12 +40,16 @@ const createPublication = async (req, res) => {
   }
 };
 
+
+// =====================================
+// ===== funciones de ADMIN======
+//===========================================
 const getPublications = async (req, res) => {
   try {
     const { page, limit, materia, tipo } = req.query;
     let filtro = {};
 
-    // filtro de materia es totalmente independiente
+    // filtro de materia es independiente
     if (materia) {
       const materiaEncontrada = await Subject.findOne({
         nombre: { $regex: materia, $options: "i" },
