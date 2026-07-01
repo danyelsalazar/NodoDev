@@ -6,19 +6,22 @@ import { getUsers } from "../controllers/user.controller.js";
 import { createPublication, getPublications } from "../controllers/publication.controller.js";
 import { validarQueryUsuarios } from "../middleware/validateQueryUser.js";
 import { validarQueryPublicaciones } from "../middleware/validateQueryPublications.js";
+import { validarAdminPatchUser } from "../middleware/validateAdminPatchUser.js";
+import { adminPatchUser } from "../controllers/admin.controller.js";
+import { validarParamId } from "../middleware/validarIDUserMiddleware.js";
 
 const router = Router()
 
 router.get("/",verificarToken, allowRoles(ROLES.ADMIN), validarQueryUsuarios, getUsers)//listarUsuarios
-
-//eliminar publicaciones de usuarios
-//...
+router.patch("/:id", verificarToken, allowRoles(ROLES.ADMIN), validarParamId, validarAdminPatchUser, adminPatchUser)//editar usuarios
 
 //eliminar usuarios
 //...
 
-//editar roles de usuarios
+//eliminar publicaciones de usuarios
 //...
+
+
 
 //
 export default router

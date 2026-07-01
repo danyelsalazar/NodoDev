@@ -1,18 +1,10 @@
-import { User } from "../models/UserModel";
+import { User } from "../models/UserModel.js";
 
 //path de usarios
 const adminPatchUser = async (req, res) => {
   try {
-    const { id } = req.params; // Capturamos el id del usuario que vamos a modificar
+    const { id } = req.params; // Capturamos el id del usuario que vamos a modificar ya viene validado con su middleware
     const datosActualizados = req.body; // Ya vienen los campos limpios por el zod
-
-    // Valido el formato del id del usuario
-    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-      return res.status(400).json({
-        success: false,
-        message: "El ID de usuario enviado en la URL no es válido",
-      });
-    }
 
     // Buscamos y actualizamos en un solo viaje a la base de datos
     // { new: true } -> devuelve el documento modificado
@@ -20,7 +12,7 @@ const adminPatchUser = async (req, res) => {
       id,
       datosActualizados,
       {
-        new: true,
+        returnDocument: "after",
         runValidators: true,
       },
     ).select("-password"); // Excluyo la password por seguridad
@@ -48,16 +40,10 @@ const adminPatchUser = async (req, res) => {
   }
 };
 
-//para probarlo:
-
-// {
-//   "nombre": "Carlos Administrado",
-//   "email": "carlos.actualizado@mail.com",
-//   "role": "ADMIN",
-//   "materias": [
-//     "64b0f1a2c3d4e5f6a7b8c9d0",
-//     "64b0f1a2c3d4e5f6a7b8c9d1"
-//   ]
-// }
+//delete user
+const adminDeleteUser = async (req, res) => {
+  try {
+  } catch (error) {}
+};
 
 export { adminPatchUser };
