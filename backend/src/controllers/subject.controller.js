@@ -1,37 +1,34 @@
-import {Subject} from "../models/SubjectModel.js"
+import { Subject } from "../models/SubjectModel.js";
+import { AppError } from "../utils/AppError.js";
 
-const crearSubject = async (req , res)=>{
-    try {
-        const datosSubject = req.body
-        // busco la materia en la base de datos para verificar que no existe ya
-        const exist = await Subject.findOne({nombre: datosSubject.nombre.trim()})
-        
-        if(exist) return res.status(409).json({
-            succes: false,
-            error: "La materia ya esta registrada"
-        })
+const crearSubject = async (req, res, next) => {
+  try {
+    const datosSubject = req.body; // Ya validados, limpios y con .trim() aplicados por tu middleware de Zod
 
-        // si no esta registrada la registro
-        // creo una materia
-        const newSubject = new Subject(datosSubject)
-        // guardo la materia
-        await newSubject.save()
+    // Busco la materia en la base de datos para verificar que no exista ya
+    const exist = await Subject.findOne({ nombre: datosSubject.nombre });
 
-        res.status(201).json({
-            succes: true,
-            data: {
-                nombre: newSubject.nombre,
-                carreras: newSubject.carreras
-            },
-            message: "Materia creada exitosamanete"
-        })
-    } catch (error) {
-        res.status(500).json({
-            succes: false,
-            message: "Error del servidor",
-            error: error.message
-        })
+    if (exist) {
+      return next(
+        new AppError("La materia ya está registrada en el sistema", 409),
+      );
     }
-}
 
-export {crearSubject}
+    // Si no está registrada, la creamos 
+    const newSubject = await Subject.create(datosSubject);
+
+    res.status(201).json({
+      success: true, 
+      data: {
+        id: newSubject._id,
+        nombre: newSubject.nombre,
+        carreras: newSubject.carreras,
+      },
+      message: "Materia creada exitosamente", 
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { crearSubject };

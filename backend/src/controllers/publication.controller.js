@@ -1,10 +1,10 @@
-import { success } from "zod";
 import { Publication } from "../models/PublicationModel.js";
 import { Subject } from "../models/SubjectModel.js";
 import { User } from "../models/UserModel.js";
+import { AppError } from "../utils/AppError.js";
 
 //crear publicacion
-const createPublication = async (req, res) => {
+const createPublication = async (req, res, next) => {
   try {
     const data = req.body;
     const idPublicador = req.user.id;
@@ -13,10 +13,7 @@ const createPublication = async (req, res) => {
     const exist = await User.findById(idPublicador);
 
     if (!exist) {
-      return res.status(404).json({
-        success: false,
-        message: "El usuario no existe en la base de datos",
-      });
+      return next(new AppError("El usuario no existe en la base de datos",404))
     }
 
     // Guardamos la publicación en la BD
@@ -32,19 +29,12 @@ const createPublication = async (req, res) => {
     });
 
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error del servidor",
-      error: error.message,
-    });
+    next(error)
   }
 };
 
-
-// =====================================
-// ===== funciones de ADMIN======
-//===========================================
-const getPublications = async (req, res) => {
+//traer publicaciones
+const getPublications = async (req, res, next) => {
   try {
     const { page, limit, materia, tipo } = req.query;
     let filtro = {};
@@ -110,11 +100,7 @@ const getPublications = async (req, res) => {
       data: publications,
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error del servidor",
-      error: error.message,
-    });
+    next(error)
   }
 };
 

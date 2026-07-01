@@ -3,6 +3,7 @@ import routes from "./routes/routes.js"
 import {config} from "dotenv"
 import cors from "cors"
 import connectDB from "./db/mongoDbConnection.js"
+import { errorHandler } from "./middleware/errorHandler.js"
 
 config() // cargo las variables de entorno
 
@@ -23,6 +24,10 @@ servidor.use("/api", routes)
 servidor.get("/", (req,res) =>{
     res.send("Servidor funcionando")
 })
+
+//MANEJO DE ERRORES
+servidor.use(errorHandler);
+
 // pongo el servidor en escucha
 servidor.listen(process.env.PORT, ()=>{
     console.log(`servidor corriendo en http://localhost:${process.env.PORT}`);

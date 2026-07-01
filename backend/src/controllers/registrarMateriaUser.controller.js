@@ -1,49 +1,50 @@
 import { User } from "../models/UserModel.js";
 import { Subject } from "../models/SubjectModel.js";
+import { AppError } from "../utils/AppError.js";
 
-//funcion especifica para que el usuario agrege una materia su arreglo de materias
-const registrarMateriaUser = async (req, res) => {
+// Función específica para que el usuario agregue una materia a su arreglo de materias
+const registrarMateriaUser = async (req, res, next) => {
   try {
-    // obtengo el id de la materia
+    // Obtengo el id de la materia
     const { idMateria } = req.body;
-    // obtengo los datos del token
+    // Obtengo los datos del token
     const datosToken = req.user;
-    // valido que la materia exista en la bd
+
+    // Valido que la materia exista en la BD
     const materia = await Subject.findById(idMateria);
 
-    // verifoc si trajo la materia
-    if (!materia)
-      return res.status(404).json({
-        success: false,
-        error: "La materia no se encontro en la Base de datos",
-      });
-    // valido que el usuario este en la base de datos
+    // Verifico si trajo la materia
+    if (!materia) {
+      return next(
+        new AppError("La materia no se encontró en la base de datos", 404),
+      );
+    }
+
+    // Valido que el usuario esté en la base de datos
     const userExist = await User.findById(datosToken.id);
-    // verifico que existe el usuario
-    if (!userExist)
-      return res.status(404).json({
-        success: false,
-        error: "El usaurio no existe o fue eliminado, verifia el token",
-      });
-    // si verifico la materia y el usaurio,  continuo con la actualizacion al usuario
+
+    // Verifico si existe el usuario
+    if (!userExist) {
+      return next(
+        new AppError("El usuario ya no existe en la base de datos", 404),
+      );
+    }
+
+    // Si se verificó la materia y el usuario, continuo con la actualización
     const userActualizado = await User.findByIdAndUpdate(
       datosToken.id,
-      { $addToSet: { materias: idMateria } }, //guardo el id sin duplicarlo
-      { new: true },
+      { $addToSet: { materias: idMateria } }, // Guardo el id sin duplicarlo gracias al operador de Mongo
+      { returnDocument: "after" },
     ).select("-password");
 
     res.status(200).json({
       success: true,
       data: userActualizado,
-      message: "Registro de materia a usuario exitosa!!!",
+      message: "¡¡¡Registro de materia a usuario exitoso!!!",
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Error del servidor",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-export {registrarMateriaUser}
+export { registrarMateriaUser };
