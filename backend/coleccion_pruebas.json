@@ -15,14 +15,13 @@
         },
         "description": "",
         "url": {
-          "raw": "http://localhost:3005/api/user/auth/register",
+          "raw": "http://localhost:3005/api/auth/register",
           "protocol": "http",
           "host": [
             "localhost:3005"
           ],
           "path": [
             "api",
-            "user",
             "auth",
             "register"
           ],
@@ -31,7 +30,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"nombre\": \"Danyel\",\n    \"email\": \"danygasia2@gmail.com\",\n    \"password\": \"Danyel2410$1\"\n}",
+          "raw": "{\n    \"nombre\": \"Carlos\",\n    \"email\": \"carlos@gmail.com\",\n    \"password\": \"Danyel2410$1\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -50,14 +49,13 @@
         },
         "description": "",
         "url": {
-          "raw": "http://localhost:3005/api/user/auth/login",
+          "raw": "http://localhost:3005/api/auth/login",
           "protocol": "http",
           "host": [
             "localhost:3005"
           ],
           "path": [
             "api",
-            "user",
             "auth",
             "login"
           ],
@@ -66,7 +64,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"email\": \"danygasia2@gmail.com\",\n    \"password\": \"Danyel2410$1\"\n}",
+          "raw": "{\n    \"email\": \"carlos@gmail.com\",\n    \"password\": \"Danyel2410$1\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -115,7 +113,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer ",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MjkyMDUzNSwiZXhwIjoxNzgyOTI0MTM1fQ.eNq0dvhCsxSx3FXtu3Vb-qY-zpv7JJN90W7VIGax_QA",
             "disabled": false,
             "type": "default"
           }
@@ -146,7 +144,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer ",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhMmI1YzM4NjI4Y2U4MThjOTk1ZDQ2ZiIsImlhdCI6MTc4MTQ4MTE5NCwiZXhwIjoxNzgxNDg0Nzk0fQ.mA1O4bKSAqYhrCh0di_WUy86ZGgrnJsP1k32pfeXdY8",
             "disabled": false,
             "type": "default"
           }
@@ -170,7 +168,7 @@
         },
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"nombre\": \"Danyel Salazar Aarcon\",\n  \"materias\": [\n    \"6a2b1d33abebca29ffc4eacc\"\n  ]\n}\n",
+          "raw": "{\n  \"nombre\": \"Danyel Alejandro Salazar Aarcon\",\n  \"materias\": [\n    \"6a2b1d33abebca29ffc4eacc\"\n  ]\n}\n",
           "options": {
             "raw": {
               "language": "json"
@@ -217,7 +215,7 @@
         "header": [
           {
             "key": "Authorization",
-            "value": "Bearer",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzgyNzg1OTY4LCJleHAiOjE3ODI3ODk1Njh9.MTXCwLkV8Iuw7dAEBpozk87QdHfc7yqIcebYLKH6Ses",
             "disabled": false,
             "type": "default"
           }
@@ -320,6 +318,240 @@
               "language": "json"
             }
           }
+        }
+      }
+    },
+    {
+      "name": "adminTraerUsuarios",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4Mjg2NjE0MywiZXhwIjoxNzgyODY5NzQzfQ.aUJJXDPYsT2ScBplccWbKoJ3ALAz1a8YtTzw3r0Mfrw",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/admin/users?page=1&limit=2&role=USER",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "users"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "2"
+            },
+            {
+              "key": "role",
+              "value": "USER"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "crearPublicacion",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4Mjg2NjE0MywiZXhwIjoxNzgyODY5NzQzfQ.aUJJXDPYsT2ScBplccWbKoJ3ALAz1a8YtTzw3r0Mfrw",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/publication",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "publication"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"descripcion\": \"Hola a todos dejo info de base de datos II\",\n  \"materia\": \"6a2b1d33abebca29ffc4eacc\",\n  \"tipo\": \"APORTE\"\n}\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "traerPublicaciones",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4Mjg2NjE0MywiZXhwIjoxNzgyODY5NzQzfQ.aUJJXDPYsT2ScBplccWbKoJ3ALAz1a8YtTzw3r0Mfrw",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/publications",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "publications"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "traerPublicacionesQuerys",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4Mjg2NjE0MywiZXhwIjoxNzgyODY5NzQzfQ.aUJJXDPYsT2ScBplccWbKoJ3ALAz1a8YtTzw3r0Mfrw",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/user/publications?tipo=APORTE&materia=base de datos II",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "user",
+            "publications"
+          ],
+          "query": [
+            {
+              "key": "tipo",
+              "value": "APORTE"
+            },
+            {
+              "key": "materia",
+              "value": "base de datos II"
+            }
+          ],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "adminEditarUsuarios",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MjkyMDUzNSwiZXhwIjoxNzgyOTI0MTM1fQ.eNq0dvhCsxSx3FXtu3Vb-qY-zpv7JJN90W7VIGax_QA",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/admin/users/6a4327a141e019d1ffb00101",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "users",
+            "6a4327a141e019d1ffb00101"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Marcos\",\n  \"email\": \"marcos.actualizado@gmail.com\",\n  \"role\": \"ADMIN\",\n  \"materias\": [\n    \"6a2b1d61abebca29ffc4eacd\"\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "adminDeleteUser",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZhNDMyN2ExNDFlMDE5ZDFmZmIwMDEwMSIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTc4MjkyMDUzNSwiZXhwIjoxNzgyOTI0MTM1fQ.eNq0dvhCsxSx3FXtu3Vb-qY-zpv7JJN90W7VIGax_QA",
+            "disabled": false,
+            "type": "default"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "http://localhost:3005/api/admin/users/6a4327a141e019d1ffb00101",
+          "protocol": "http",
+          "host": [
+            "localhost:3005"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "users",
+            "6a4327a141e019d1ffb00101"
+          ],
+          "query": [],
+          "variable": []
         }
       }
     }

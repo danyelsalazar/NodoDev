@@ -47,6 +47,15 @@ El sistema utiliza la variable `NODE_ENV` para gestionar la seguridad de las exc
 
 ## 📎 Colección de Pruebas (Ejemplos de Requests en Postman)
 
+### Importación Directa desde Postman (Recomendado)
+El proyecto incluye el archivo **`coleccion_pruebas.json`** en la raíz del backend. Este archivo contiene la colección ejecutable con todas las solicitudes de la API ya configuradas. 
+
+Para utilizarlo:
+1. Abre **Postman**.
+2. Haz clic en el botón **Import** (esquina superior izquierda).
+3. Selecciona o arrastra el archivo `coleccion_pruebas.json`.
+4. ¡Listo! Tendrás la carpeta con todos los endpoints ordenados de forma automática.
+
 ### 1. Módulo de Autenticación (Rutas Públicas)
 *   **Registro de Usuario**
     *   **Método:** `POST`
