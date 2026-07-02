@@ -136,7 +136,7 @@ Para utilizarlo:
         ```json
         {
           "nombre": "Base de Datos II",
-          "carreras": ["Sistemas", "Programacion"]
+          "carreras": ["Ingenieria en Sistemas", "Licenciatura en Informatica"]
         }
         ```
 
